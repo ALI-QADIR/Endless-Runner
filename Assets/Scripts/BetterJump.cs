@@ -5,7 +5,7 @@ using UnityEngine;
 public class BetterJump : MonoBehaviour
 {
     [Tooltip("Additional gravity multiplier for snappy falls")] public float fallMultiplier = 2.5f;
-    [Tooltip("Additional gravity multiplier for short jumps")] public float lowJumpMultiplier = 2f;
+    // [Tooltip("Additional gravity multiplier for short jumps")] public float lowJumpMultiplier = 2f;
 
     private Rigidbody rb;
     // Start is called before the first frame update
@@ -21,9 +21,9 @@ public class BetterJump : MonoBehaviour
         {
             rb.velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
-        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
-        {
-            rb.velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
+        // else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        // {
+        //     rb.velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+        // }
     }
 }

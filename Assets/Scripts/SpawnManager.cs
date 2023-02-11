@@ -10,16 +10,24 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("Delay before starting spawn")] public float startDelay = 2f;
     [Tooltip("Spawn delay")] public float spawnDelay = 2f;
 
+    // private variables
+    private PlayerController playerControllerScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        // get player controller script
+        playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         InvokeRepeating(nameof(SpawnObstacle), startDelay, spawnDelay);
     }
 
 
     void SpawnObstacle()
     {
-        Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        if (playerControllerScript.gameOver == false) 
+        { 
+            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        }
     }
     // Update is called once per frame
     void Update()
