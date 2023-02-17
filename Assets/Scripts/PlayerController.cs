@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
             explosionParticle.Play();                                                             // play the particle system
             playerAudio.PlayOneShot(crashAudio, 1.0f);                                            // play crash audio once
             dirtParticle.Stop();                                                                  // stop dirt particle system
+            playerAudio.PlayOneShot(crashAudio, 1.0f);                                            // play crash audio once
         }
     }
 }

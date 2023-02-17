@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,11 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     // public variables
-    [Tooltip("The prefab to spawn")] public GameObject obstaclePrefab;
+    [Header("Obstacle Settings")]
+    [Tooltip("Array of obstacles prefabs")] public GameObject[] obstaclePrefabs;                // array of obstacle prefabs
+    // [Tooltip("The prefab to spawn")] public GameObject obstaclePrefab;
+
+    [Header("Spawn Settings")]
     [Tooltip("Spawn position")] public Vector3 spawnPos = new(25, 0, 0);
     [Tooltip("Delay before starting spawn")] public float startDelay = 2f;
     [Tooltip("Spawn delay")] public float spawnDelay = 2f;
@@ -18,15 +23,18 @@ public class SpawnManager : MonoBehaviour
     {
         // get player controller script
         playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        spawnDelay = Random.Range(spawnDelay - 0.5f, spawnDelay + 1.5f);
         InvokeRepeating(nameof(SpawnObstacle), startDelay, spawnDelay);
     }
 
 
     void SpawnObstacle()
     {
+        int obstacleIndex;
         if (playerControllerScript.gameOver == false) 
-        { 
-            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        {
+            obstacleIndex = Random.Range(0, obstaclePrefabs.Length);                                                    // get random index for obstacle
+            Instantiate(obstaclePrefabs[obstacleIndex], spawnPos, obstaclePrefabs[obstacleIndex].transform.rotation);   // spawn a random obstacle
         }
     }
     // Update is called once per frame
