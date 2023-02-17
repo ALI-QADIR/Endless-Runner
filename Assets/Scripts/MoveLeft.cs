@@ -30,7 +30,7 @@ public class MoveLeft : MonoBehaviour
         {
             currentSpeed = speed;
         }
-        if (playerControllerScript.gameOver == false)
+        if (!playerControllerScript.gameOver && playerControllerScript.gameStarted)
         {
             transform.Translate(Time.deltaTime * currentSpeed * Vector3.left);
         }
