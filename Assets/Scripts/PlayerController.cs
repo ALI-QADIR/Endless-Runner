@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Audio clip for crash")] public AudioClip crashAudio;                                // Audio clip for crash
 
     [HideInInspector]
-    [Tooltip("Game Over booleans")] public bool gameOver = false;
+    public bool gameOver = false;
     [HideInInspector]
-    [Tooltip("Player is on ground")] public bool isOnGround = true;                               // is on ground
+    public bool isOnGround = true;                                                                // is on ground
+    [HideInInspector]
+    public bool isDashing;
 
     // private variables
     private Animator playerAnim;                                                                  // animator on player
@@ -42,6 +44,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         VerticalMovement();                                                                       // call vertical movement function
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isDashing = true;
+            playerAnim.SetFloat("Speed_Mul", 2.0f);
+            // Debug.Log("Dash");
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isDashing = false;
+            playerAnim.SetFloat("Speed_Mul", 1.0f);
+            // Debug.Log("No Dash");
+        }
     }
 
     void VerticalMovement()
@@ -58,7 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * superJumpForce, ForceMode.Impulse);
             doubleJumpUsed = true;
-            playerAnim.SetTrigger("Jump_trig");
+            playerAnim.Play("Running_Jump", 3, 0f);
             playerAudio.PlayOneShot(jumpAudio, 1.0f);
         }
     }
