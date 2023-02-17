@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump variables")]
     [Tooltip("Force with which the player jumps")] public float jumpForce = 700;                  // jump force
     [Tooltip("Gravity multiplier")] public float gravityModifier = 1;                             // gravity modifier
+    [Tooltip("Super Jump Force")] public float superJumpForce = 1000;                             // super jump force
 
     [Header("Particle Systems")]
     [Tooltip("Explosion Particle System for Death")] public ParticleSystem explosionParticle;     // explosion particle system
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;                                                                  // animator on player
     private Rigidbody rb;                                                                         // rigidbody component
     private AudioSource playerAudio;                                                              // Player Audio Source
+    private bool doubleJumpUsed;                                                                  // double jump used
     
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,13 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(jumpAudio, 1.0f);                                             // play jump audio once
             dirtParticle.Stop();                                                                  // stop dirt particle system
         }
+        else if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !doubleJumpUsed) 
+        {
+            rb.AddForce(Vector3.up * superJumpForce, ForceMode.Impulse);
+            doubleJumpUsed = true;
+            playerAnim.SetTrigger("Jump_trig");
+            playerAudio.PlayOneShot(jumpAudio, 1.0f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,6 +68,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))                                            // if collision with ground
         {
             isOnGround = true;                                                                    // set is on ground to true
+            doubleJumpUsed = false;                                                               // set double jump used to false
             dirtParticle.Play();                                                                  // play dirt particle system
         }
         else if (collision.gameObject.CompareTag("Obstacle"))                                     // if collision with obstacle

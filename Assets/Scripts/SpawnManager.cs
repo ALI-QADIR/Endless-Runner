@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour
     {
         // get player controller script
         playerControllerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        spawnDelay = Random.Range(spawnDelay - 0.5f, spawnDelay + 1.5f);
+        spawnDelay = Random.Range(spawnDelay, spawnDelay + 2.0f);
         InvokeRepeating(nameof(SpawnObstacle), startDelay, spawnDelay);
     }
 
