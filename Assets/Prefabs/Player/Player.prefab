@@ -1819,7 +1819,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 2
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &554423635706022697
 BoxCollider:
@@ -1846,14 +1846,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5813c625e8617e047b588e06425c642e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 700
+  jumpForce: 500
+  downForce: 1000
   gravityModifier: 1
+  superJumpForce: 500
   explosionParticle: {fileID: 8724300668023854365}
   dirtParticle: {fileID: 554423635062920957}
   jumpAudio: {fileID: 8300000, guid: 0f7d0b7c3397f4dac91f20e8a77d2d57, type: 3}
   crashAudio: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
   gameOver: 0
   isOnGround: 1
+  isDashing: 0
+  gameStarted: 0
 --- !u!114 &554423635706022701
 MonoBehaviour:
   m_ObjectHideFlags: 0
